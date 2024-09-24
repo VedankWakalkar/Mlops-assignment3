@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Iris Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #f4f4f4;
+            border-radius: 3px;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        img {
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Filtered Data for {{ species }}</h1>
+    <table>
+        <tr>
+            <th>SepalLengthCm</th>
+            <th>SepalWidthCm</th>
+            <th>PetalLengthCm</th>
+            <th>PetalWidthCm</th>
+            <th>Species</th>
+        </tr>
+        {% for row in filtered_data %}
+        <tr>
+            <td>{{ row['SepalLengthCm'] }}</td>
+            <td>{{ row['SepalWidthCm'] }}</td>
+            <td>{{ row['PetalLengthCm'] }}</td>
+            <td>{{ row['PetalWidthCm'] }}</td>
+            <td>{{ row['Species'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        {% for p in range(1, total_pages + 1) %}
+            <a href="?species={{ species }}&page={{ p }}" class="{% if p == current_page %}active{% endif %}">
+                {{ p }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <h3>Feature Distribution Visualization</h3>
+    <img src="{{ image }}" alt="Feature Distribution Image" width="600">
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Data Filter</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div id="output">
+        <h1>Filter Iris Data by Species</h1>
+        <form method="get" action="/filter-data">
+            <label for="species">Species:</label>
+            <select name="species" id="species">
+                <option value="Iris-setosa">Iris-setosa</option>
+                <option value="Iris-versicolor">Iris-versicolor</option>
+                <option value="Iris-virginica">Iris-virginica</option>
+            </select>
+            <input type="submit" value="Filter Data">
+        </form>
+
+        {% if filtered_data %}
+        <h2>Filtered Data for {{ species }}</h2>
+        {% for row in filtered_data %}
+        <div class="data-row">
+            <p><strong>Sepal Length:</strong> {{ row['SepalLengthCm'] }} cm</p>
+            <p><strong>Sepal Width:</strong> {{ row['SepalWidthCm'] }} cm</p>
+            <p><strong>Petal Length:</strong> {{ row['PetalLengthCm'] }} cm</p>
+            <p><strong>Petal Width:</strong> {{ row['PetalWidthCm'] }} cm</p>
+            <p><strong>Species:</strong> {{ row['Species'] }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+
+        <h3>Feature Distribution Visualization</h3>
+        <img src="/static/{{ image }}" alt="Feature Distribution Image">
+        {% endif %}
+    </div>
+</body>
+</html>
